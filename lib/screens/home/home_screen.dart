@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_flutter_firebase/models/todo.dart';
+import 'package:todo_flutter_firebase/providers/preference_user.dart';
 import 'package:todo_flutter_firebase/screens/root/root_screen.dart';
+import 'package:todo_flutter_firebase/utils/menu_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   final String userId;
@@ -27,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   late StreamSubscription<DatabaseEvent> _onTodoAddSubcription;
   late StreamSubscription<DatabaseEvent> _onTodoChangeSubcription;
+
+  final _prefs = PreferenceUser();
 
   @override
   void initState() {
@@ -69,6 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void signOut() async {
+    _prefs.cleanAllPrefs();
+
     try {
       await _auth.signOut();
 
@@ -156,7 +162,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           )
         ],
+        backgroundColor: _prefs.secondaryColor ? Colors.green : Colors.blue,
       ),
+      drawer: const MenuWidget(),
       body: showTodoList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
