@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_flutter_firebase/screens/offline/offline_screen.dart';
 import 'package:todo_flutter_firebase/screens/product/product_screen.dart';
 import 'package:todo_flutter_firebase/screens/settings/settings_screen.dart';
 
@@ -37,6 +38,20 @@ class MenuWidget extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const ProductScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.offline_pin,
+            ),
+            title: const Text('Offiline'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const OffileneScreen(),
                 ),
               );
             },
