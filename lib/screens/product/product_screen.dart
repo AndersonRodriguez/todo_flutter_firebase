@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_flutter_firebase/models/product.dart';
+import 'package:todo_flutter_firebase/screens/product/product_form_screen.dart';
 import 'package:todo_flutter_firebase/services/api_service.dart';
 
 class ProductScreen extends StatefulWidget {
@@ -28,7 +29,6 @@ class _ProductScreenState extends State<ProductScreen> {
         future: _apiService?.getProducts(),
         builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
           if (snapshot.hasError) {
-            print('Error');
             return Center(
               child: Text('Error ${snapshot.error.toString()}'),
             );
@@ -41,6 +41,17 @@ class _ProductScreenState extends State<ProductScreen> {
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductFormScreen(),
+            ),
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -57,7 +68,7 @@ class _ProductScreenState extends State<ProductScreen> {
               children: [
                 Text(
                   product.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20.0,
                   ),
                 ),
@@ -66,9 +77,27 @@ class _ProductScreenState extends State<ProductScreen> {
                   children: [
                     TextButton(
                       onPressed: () {
+                        // _confirmDeleteProduct(context, product);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ProductFormScreen(product: product),
+                          ),
+                        );
+                      },
+                      child: const Text('Editar'),
+                    ),
+                    TextButton(
+                      onPressed: () {
                         _confirmDeleteProduct(context, product);
                       },
-                      child: const Text('Eliminar'),
+                      child: const Text(
+                        'Eliminar',
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
                     ),
                   ],
                 ),

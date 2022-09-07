@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_flutter_firebase/screens/home/product_screen.dart';
-import 'package:todo_flutter_firebase/screens/home/settings_screen.dart';
+import 'package:todo_flutter_firebase/screens/product/product_screen.dart';
+import 'package:todo_flutter_firebase/screens/settings/settings_screen.dart';
 
 class MenuWidget extends StatelessWidget {
   const MenuWidget({Key? key}) : super(key: key);
