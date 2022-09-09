@@ -51,7 +51,7 @@ class MenuWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const OffileneScreen(),
+                  builder: (context) => OfflineScreen(),
                 ),
               );
             },

@@ -52,4 +52,33 @@ class DBProvider {
 
   // Seleccionar registros
 
+  Future<List<DataModel>> getAllData() async {
+    final db = await database;
+
+    final res = await db!.query('Data');
+
+    List<DataModel> list = res.isNotEmpty
+        ? res.map((data) => DataModel.fromJson(data)).toList()
+        : [];
+
+    return list;
+  }
+
+  Future<DataModel?> getDataId(int id) async {
+    final db = await database;
+
+    final res = await db!.query('Data', where: 'id = ?', whereArgs: [id]);
+
+    return res.isNotEmpty ? DataModel.fromJson(res.first) : null;
+  }
+
+  // Eliminar registros
+
+  Future<int> deleteData(int id) async {
+    final db = await database;
+
+    final res = await db!.delete('Data', where: 'id = ?', whereArgs: [id]);
+
+    return res;
+  }
 }
